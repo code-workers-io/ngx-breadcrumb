@@ -1,105 +1,288 @@
+# ngx-breadcrumb
+
+- ✅ Easy styling of default breadcrumb via CSS custom properties
+- ✅ Customize breadcrumb separator via string or custom template
+- ✅ Customize breadcrumb via template
+- ✅ Focus on DX
+
+## Installation
+
+```bash
+npm install --save @code-workers.io/ngx-breadcrumb
+```
+## Demo
 
 
-# NgTypes
+## Usage
+### Import the `BreadcrumbModule` module into your AppModule
 
-This project was generated using [Nx](https://nx.dev).
+> You must import the `BreadcrumbModule` into lazy-loaded modules, too.
+> Otherwise, no breadcrumbs will be rendered for the sub-routes of the
+> lazy-loaded module.
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+```typescript
+// app.module.ts
 
-🔎 **Smart, Fast and Extensible Build System**
+import { BreadcrumbModule } from '@igpm/core';
 
-## Quick Start & Documentation
+@NgModule({
+  imports: [BreadcrumbModule],
+})
+export class AppModule {}
+```
+### Provide Breadcrumbs
+#### Setup breadcrumb data in your route configuration
 
-[Nx Documentation](https://nx.dev/angular)
+```typescript
+// app-routing.module.ts
 
-[10-minute video showing all Nx features](https://nx.dev/getting-started/intro)
+const routes: Routes = [
+  { path: 'example', data: { breadcrumb: 'Example' } },
+];
 
-[Interactive Tutorial](https://nx.dev/tutorial/01-create-application)
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}
+```
+#### Implement the `BreadcrumbProvider` interface (Optional)
 
-## Adding capabilities to your workspace
+> Some components need a dynamic breadcrumb label, e.g. editor components.
+> Such components may implement the `BreadcrumbProvider` interface and offer
+> dynamic breadcrumb data to the `BreadcrumbService`.
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+```typescript
+// my-editor.component.ts
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+@Component(...)
+export class MyEditorComponent implements BreadcrumbProvider {
+    getBreadcrumb(): BreadcrumbData {
+      return {
+        label: ..., // this could be a string or an observable, e.g. from ReactiveForm controls
+        link: ... // this could be `false` to disable linking or a external url (or a different route...)
+      };
+    }
+}
+```
 
-Below are our core plugins:
+### Provide root breadcrumb(s)
+Root breadcrumb(s) are breadcrumbs which are rendered in front of the breadcrumbs dervived from the route. This
+can e.g. be a "home"-breadcrumb.
 
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
+You can provide root breadcrumbs either programmatically or by configuration.
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+#### Programmatically
+```typescript
+// app.component.ts
+// ...
+constructor(private breadcrumbProviderService: NgxBreadcrumbProviderService) {
+  this.breadcrumbProviderService.setRootBreadcrumbs([
+    { label: 'Home', link: '/' }
+  ]);
+}
+```
 
-## Generate an application
-
-Run `ng g @nrwl/angular:app my-app` to generate an application.
-
-> You can use any of the plugins above to generate applications as well.
-
-When using Nx, you can create multiple applications and libraries in the same workspace.
-
-## Generate a library
-
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are shareable across libraries and applications. They can be imported from `@ngx-breadcrumb/mylib`.
-
-## Development server
-
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng g component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
+#### Configuration
+```typescript
+// app.module.ts
+@NgModule({
+  imports: [ NgxBreadcrumbModule.withConfig({
+    stickyRoot: [
+      new Breadcrumb('Home', '/'),
+      new Breadcrumb('Home1', '/')
+    ]
+  })]
+})
+export class AppModule {}
+```
 
 
 
+### Additional info on Route setup
+For static breadcrumb configuration, you have to provide the required data with the route setup.
+Therefore add a `breadcrumb` segment to the Route's `data` attribute.
+
+The `breadcrumb` attribute may be
+
+- a boolean value (if data.breadcrumb === false, no breadcrumb will be generated for that route)
+- a string value (string will be taken for breadcrumb label)
+- a `BreadcrumbData` object
+
+When providing a `BreadcrumbData` object, you may use the `BreadcrumbData.link` attribute
+to either suppress linking of the breadcrumb (text-only) or to specify a deviating url.
+
+For dynamic breadcrumb configuration, your routed components may implement the `BreadcrumbProvider`
+interface in order to provide breadcrumb data which overrides the route configuration.
+
+```typescript
+const routes: Routes = [
+  // Routed component does NOT implement the BreadcrumbProvider interface:
+
+  // don't generate a breadcrumb for this route (as there's no label to display)
+  { path: 'example', component: ExampleComponent },
+  {
+    path: 'example',
+    component: ExampleComponent,
+    data: { breadcrumb: true },
+  },
+
+  // don't generate a breadcrumb for this route (as it has been disabled explicitly)
+  {
+    path: 'example',
+    component: ExampleComponent,
+    data: { breadcrumb: false },
+  },
+
+  // generate a regular breadcrumb with label "Example"
+  {
+    path: 'example',
+    component: ExampleComponent,
+    data: { breadcrumb: 'Example' },
+  },
+  {
+    path: 'example',
+    component: ExampleComponent,
+    data: { breadcrumb: { label: 'Example' } },
+  },
+  {
+    path: 'example',
+    component: ExampleComponent,
+    data: { breadcrumb: { label: 'Example', link: true } },
+  },
+
+  // generate a label-only breadcrumb with label "Example"
+  {
+    path: 'example',
+    component: ExampleComponent,
+    data: { breadcrumb: { label: 'Example', link: false } },
+  },
+
+  // generate a breadcrumb with label "Example" linking to an external url
+  {
+    path: 'example',
+    component: ExampleComponent,
+    data: { breadcrumb: { label: 'Example', link: 'http://example.com' } },
+  },
+
+  // Routed component DOES implement the BreadcrumbProvider interface
+
+  // generate a breadcrumb with data provided by the component
+  { path: 'example', component: ExampleBreadcrumbProviderComponent },
+  {
+    path: 'example',
+    component: ExampleBreadcrumbProviderComponent,
+    data: { breadcrumb: true },
+  },
+
+  // don't generate a breadcrumb for this route (as it has been disabled explicitly)
+  {
+    path: 'example',
+    component: ExampleBreadcrumbProviderComponent,
+    data: { breadcrumb: false },
+  },
+
+  // generate a breadcrumb; merge the 'label' attribute from route data and component data
+  // breadcrumb data from component has precedence over breadcrumb data from route
+  {
+    path: 'example',
+    component: ExampleBreadcrumbProviderComponent,
+    data: { breadcrumb: 'Example' },
+  },
+  {
+    path: 'example',
+    component: ExampleBreadcrumbProviderComponent,
+    data: { breadcrumb: { label: 'Example' } },
+  },
+  {
+    path: 'example',
+    component: ExampleBreadcrumbProviderComponent,
+    data: { breadcrumb: { label: 'Example', link: true | false } },
+  },
+];
+```
+
+### Futher configuration
+The NgxBreadcrumbModule` accepts the `NgxBreadcrumbConfig` configuration-object:
+- `breadcrumbCount.fixedLead`: number of visible leading breadcrumbs. Default: 1.
+- `breadcrumbCount.fixedTail`: number of visible trailing breadcrumbs. Default: 2.
+
+With this configuration you can control the number of breadcrumbs which are rendered. Breadcrumbs in
+between are just rendered as dots.
+
+# Customization
+There are two ways to for customization: via `ng-template` and/or via CSS custom properties
+
+### Customization via `ng-template`
+#### Breadcrumb customization 
+```html
+<ngx-breadcrumbs [breadcrumbTemplate]='bc'></ngx-breadcrumbs>
+
+<ng-template #bc let-last="last" let-crumb>
+  {{crumb.label}}
+</ng-template>
+```
 
 
+#### Breadcrumb separator customization 
+```html
+<ngx-breadcrumbs [separatorTemplate]='sep' ></ngx-breadcrumbs>
 
-## ☁ Nx Cloud
+<ng-template #sep>
+  //
+</ng-template>
+```
 
-### Distributed Computation Caching & Distributed Task Execution
+## Customization via CSS custom properties
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
+Available CSS custom properties:
 
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
+The `breadcrumb-container`
+- `--ngx-breadcrumb-container-padding`: padding of the breadcrumb container. Default: `0.5rem`.
+- `--ngx-breadcrumb-container-margin`: the margin of the breadcrumb container.
+- `--ngx-breadcrumb-container-bg-color`: the background color of the breadcrumb container.
+- `--ngx-breadcrumb-gap-between`: gap between breadcrumbs. Default: `0.5rem`.
+- 
+The `breadcrumb` itself:
+- `--ngx-breadcrumb-padding`: padding of the breadcrumb. Default: `0.5rem`.
+- `--ngx-breadcrumb-margin`: the margin of the breadcrumb.
+- `--ngx-breadcrumb-bg-color`: the background color of the breadcrumb.
+- `--ngx-breadcrumb-border`: the border of the breadcrumb. Default: `none`.
+- `--ngx-breadcrumb-border-radius`: the border-radius of the breadcrumb. Default: `0`.
+- `--ngx-breadcrumb-link-decoration`: the text-decoration of the breadcrumb link. Default: `none`.
 
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
+The separator container:
+- `--ngx-separator-container-height`: the height of the separator container. Default: `100%`.
+- `--ngx-separator-container-width`: the width of the separator container. Default: `auto`.
+- `--ngx-separator-container-padding`: the padding of the separator container. Default: `0`.
+- `--ngx-separator-container-margin`: the margin of the separator container. Default: `0`.
+- `--ngx-separator-container-bg-color`: the background color of the separator container. Default: `inherit`.
 
-Visit [Nx Cloud](https://nx.app/) to learn more.
+The separator-icon between breadcrumbs:
+- `--ngx-separator-icon-color`: the color of the separator icon. Default: `black`.
+- `--ngx-separator-icon-height`: the height of the separator icon. Default: `24px`.
+- `--ngx-separator-icon-width`: the width of the separator icon. Default: `24px`.
+
+See Demo for examples.
+
+## Translate Breadcrumbs
+To translate the breadcrums you only need to provide the `NGX_TRANSLATION_ADAPTER` token with an
+implementation of the `NgxBreadcrumbTranslationAdapter`-interface. You can choose any translation
+library of your choice.
+
+```typescript
+import { TranslateService } from '@ngx-translate/core';
+@Injectable({
+  providedIn: 'root',
+})
+export class MyTranslationAdapter implements NgxBreadcrumbTranslationAdapter {
+  constructor(private translateService: TranslateService) {}
+
+  translate(key: string): string {
+    return this.translateService.instant(key);
+  }
+}
+```
+
+## Compatibility
+The versions align with the Angular versions. This means version 13.x.x of this library is compatible with Angular 13.x.x. or greater.
