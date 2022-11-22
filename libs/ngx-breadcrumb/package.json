@@ -1,0 +1,19 @@
+{
+  "name": "@code-workers.io/ngx-breadcrumb",
+  "version": "13.0.0",
+  "peerDependencies": {
+    "@angular/common": "^13.3.0",
+    "@angular/core": "^13.3.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "description": "Flexible and easily customizable breadcrumb component for Angular",
+  "keywords": [
+    "angular",
+    "breadcrumb",
+    "breadcrumbs",
+    "ngx-breadcrumb",
+    "easy customizable breadcrumb component for angular"
+  ]
+}

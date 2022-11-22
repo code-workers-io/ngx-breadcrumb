@@ -1,0 +1,42 @@
+{
+  "projectType": "library",
+  "root": "libs/ngx-breadcrumb",
+  "sourceRoot": "libs/ngx-breadcrumb/src",
+  "prefix": "ngx-breadcrumb",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/ngx-breadcrumb"],
+      "options": {
+        "project": "libs/ngx-breadcrumb/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/ngx-breadcrumb/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/ngx-breadcrumb/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ngx-breadcrumb"],
+      "options": {
+        "jestConfig": "libs/ngx-breadcrumb/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ngx-breadcrumb/src/**/*.ts",
+          "libs/ngx-breadcrumb/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

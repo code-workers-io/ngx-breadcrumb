@@ -2,7 +2,7 @@
   "projectType": "application",
   "root": "apps/demo",
   "sourceRoot": "apps/demo/src",
-  "prefix": "ng-types",
+  "prefix": "ngx-breadcrumb",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",

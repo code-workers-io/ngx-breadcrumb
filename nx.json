@@ -1,5 +1,5 @@
 {
-  "npmScope": "ng-types",
+  "npmScope": "ngx-breadcrumb",
   "affected": {
     "defaultBase": "main"
   },

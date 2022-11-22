@@ -13,7 +13,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "ngTypes",
+            "prefix": "ngxBreadcrumb",
             "style": "camelCase"
           }
         ],

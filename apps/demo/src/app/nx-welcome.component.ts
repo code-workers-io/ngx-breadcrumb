@@ -3,7 +3,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 /* eslint-disable */
 
 @Component({
-  selector: 'ng-types-nx-welcome',
+  selector: 'ngx-breadcrumb-nx-welcome',
   template: `
     <!--
      * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -841,7 +841,7 @@ nx affected:e2e</pre>
     </div>
   `,
   styles: [],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class NxWelcomeComponent implements OnInit {
   constructor() {}
