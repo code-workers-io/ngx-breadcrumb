@@ -1,1 +1,11 @@
-<ngx-breadcrumb-nx-welcome></ngx-breadcrumb-nx-welcome>
+<ngx-breadcrumbs  ></ngx-breadcrumbs>
+<button (click)="toOne()">One</button>
+<button (click)='toTwo()'>Two</button>
+<router-outlet></router-outlet>
+<ng-template #sep>
+  //
+</ng-template>
+<ng-template #bc let-last="last" let-bread>
+  {{last}}
+  {{bread?.title }}
+</ng-template>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'ngx-breadcrumb-root',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'demo';
+
+  constructor(private readonly router: Router) {
+  }
+  toOne() {
+    this.router.navigate(['one'])
+  }
+
+  toTwo() {
+    this.router.navigate(['two'])
+  }
 }
