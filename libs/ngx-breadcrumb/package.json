@@ -2,8 +2,8 @@
   "name": "@code-workers.io/ngx-breadcrumb",
   "version": "13.0.0",
   "peerDependencies": {
-    "@angular/common": "^13.3.0",
-    "@angular/core": "^13.3.0"
+    "@angular/common": ">=13.3.0",
+    "@angular/core": ">=13.3.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
@@ -15,5 +15,12 @@
     "breadcrumbs",
     "ngx-breadcrumb",
     "easy customizable breadcrumb component for angular"
-  ]
+  ],
+  "author": "Michael Berger",
+  "license": "MIT",
+  "homepage": "https://github.com/code-workers-io/ngx-breadcrumb/libs/ngx-breadcrumb#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/code-workers-io/ngx-breadcrumb"
+  }
 }
