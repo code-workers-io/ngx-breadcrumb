@@ -1,15 +1,13 @@
-import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, PRIMARY_OUTLET, Router } from '@angular/router';
-import { asyncScheduler, BehaviorSubject, Subscription } from 'rxjs';
-import { filter, map, observeOn } from 'rxjs/operators';
-import { RouterOutletTrackerService } from './router-outlet-tracker.service';
-import { Breadcrumb } from './breadcrumb.model';
-import { log } from './breadcrumb-console';
-import { NGX_BREADCRUMB_CONFIG, NgxBreadcrumbConfig } from '../config/ngx-breadcrumb-config';
-import { BreadcrumbFactoryService } from './breadcrumb-factory.service';
-
-const DEFAULT_FIXED_LEAD = 1;
-const DEFAULT_FIXED_TAIL = 2;
+import {Inject, Injectable, OnDestroy, Optional} from '@angular/core';
+import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, PRIMARY_OUTLET, Router} from '@angular/router';
+import {asyncScheduler, BehaviorSubject, Subscription} from 'rxjs';
+import {filter, map, observeOn} from 'rxjs/operators';
+import {RouterOutletTrackerService} from './router-outlet-tracker.service';
+import {Breadcrumb} from './breadcrumb.model';
+import {log} from './breadcrumb-console';
+import {NGX_BREADCRUMB_CONFIG, NgxBreadcrumbConfig} from '../config/ngx-breadcrumb-config';
+import {BreadcrumbFactoryService} from './breadcrumb-factory.service';
+import {DEFAULT_FIXED_LEAD, DEFAULT_FIXED_TAIL} from "../config/constants";
 
 /**
  * @privateApi
