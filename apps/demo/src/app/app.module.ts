@@ -38,13 +38,7 @@ const routes: Routes = [
     breadcrumbCount: {
       fixedLead: 5,
       fixedTail: 5,
-    },
-    stickyRootComponents: [
-      {
-        component: RootBreadcrumbComponent,
-        breadcrumb: new Breadcrumb('Root', '/')
-      }
-    ]
+    }
   }), RootBreadcrumbComponentModule],
   providers: [{ provide: NGX_TRANSLATION_ADAPTER, useClass: translator}],
   bootstrap: [AppComponent],
