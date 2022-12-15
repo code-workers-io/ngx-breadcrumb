@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input } from '@angular/core';
 import { delay, map, switchMap, tap } from 'rxjs/operators';
 import { combineLatest, of, ReplaySubject } from 'rxjs';
-import { Breadcrumb } from './breadcrumb.model';
+import { Breadcrumb } from '../types/breadcrumb.model';
 import { getRouteFromUrl } from './get-route-from-url';
 
 /**

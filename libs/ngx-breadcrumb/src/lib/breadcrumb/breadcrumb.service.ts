@@ -3,7 +3,7 @@ import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, PRIMARY_OUTLET, R
 import {asyncScheduler, BehaviorSubject, Subscription} from 'rxjs';
 import {filter, map, observeOn} from 'rxjs/operators';
 import {RouterOutletTrackerService} from './router-outlet-tracker.service';
-import {Breadcrumb} from './breadcrumb.model';
+import {Breadcrumb} from '../types/breadcrumb.model';
 import {log} from './breadcrumb-console';
 import {NGX_BREADCRUMB_CONFIG, NgxBreadcrumbConfig} from '../config/ngx-breadcrumb-config';
 import {BreadcrumbFactoryService} from './breadcrumb-factory.service';
@@ -37,7 +37,7 @@ export class BreadcrumbService implements OnDestroy {
     private breadcrumbFactory: BreadcrumbFactoryService,
     @Optional() @Inject(NGX_BREADCRUMB_CONFIG) private config: NgxBreadcrumbConfig,
   ) {
-    if (config?.stickyRoot){
+    if (config?.stickyRoot) {
       this.setStickyRootBreadcrumbs(...config.stickyRoot)
     }
     // @ts-ignore
