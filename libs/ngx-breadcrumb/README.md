@@ -96,8 +96,47 @@ constructor(private breadcrumbProviderService: NgxBreadcrumbProviderService) {
 })
 export class AppModule {}
 ```
+#### Provide a root breadcrumb component
+You can provide a root breadcrumb component which will be rendered in front of the breadcrumbs dervived from the route.
 
+Simply include your component inside the `ngx-breadcrumbs`-tag:
+```typescript
+<ngx-breadcrumbs>
+  <my-root-breadcrumb></my-root-breadcrumb>
+</ngx-breadcrumbs>
 
+// component
+@Component({
+  selector: 'my-root-breadcrumb',
+  template: `
+    <svg (click)="onClick()" cursor="pointer"  xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M6 19h3v-6h6v6h3v-9l-6-4.5L6 10Zm-2 2V9l8-6 8 6v12h-7v-6h-2v6Zm8-8.75Z"/></svg>
+  `,
+  styles: [`
+    :host{
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border: 1px solid #ccc;
+      border-radius: 100%;
+      background-color: #ccc;
+      padding: 8px;
+    }
+
+  `]
+})
+export class MyRootBreadcrumbComponent implements OnInit {
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {}
+
+  onClick() {
+    this.router.navigate(['/']);
+  }
+}
+```
+Note: right now you need to trigger navigation by yourself. This will be improved in the future.
 
 ### Additional info on Route setup
 For static breadcrumb configuration, you have to provide the required data with the route setup.
