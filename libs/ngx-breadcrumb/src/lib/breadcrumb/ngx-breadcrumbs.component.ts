@@ -17,7 +17,6 @@ import { BreadcrumbService } from './breadcrumb.service';
 import {
   BreadcrumbComponent,
   NGX_BREADCRUMB_CONFIG,
-  NGX_STICKY_BREADCRUMB,
   NgxBreadcrumbConfig,
 } from '../config/ngx-breadcrumb-config';
 import { Router } from '@angular/router';

@@ -14,7 +14,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {OneComponent} from "./one.component";
 import {OneOneComponent} from "./one-one.component";
 import {TwoComponent} from "./two.component";
-import { RootBreadcrumbComponentModule} from "./root-breadcrumb.component";
+import {RootBreadcrumbComponent, RootBreadcrumbComponentModule} from "./root-breadcrumb.component";
 @Injectable({providedIn: 'root'})
 class translator implements NgxBreadcrumbTranslationAdapter {
   translate(key: string | undefined | null): string {
@@ -39,6 +39,13 @@ const routes: Routes = [
     breadcrumbCount: {
       fixedLead: 5,
       fixedTail: 5,
+    },
+    stickyRootComponents: {
+      component: RootBreadcrumbComponent,
+      data: {
+        label: 'Home',
+        link: '/'
+      }
     }
   }), RootBreadcrumbComponentModule],
   providers: [{ provide: NGX_TRANSLATION_ADAPTER, useClass: translator}],
