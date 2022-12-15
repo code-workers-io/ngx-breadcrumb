@@ -111,13 +111,13 @@ export class NgxBreadcrumbsComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit() {
-    if (this.config?.stickyRootComponents) {
+    if (this.config?.stickyRootComponent) {
       const componentRef: ComponentRef<BreadcrumbComponent> =
         this.stickyContainer.createComponent(
-          this.config.stickyRootComponents.component
+          this.config.stickyRootComponent.component
         );
       componentRef.instance.click.subscribe(() => {
-        this.router.navigate([this.config.stickyRootComponents?.data.link]);
+        this.router.navigate([this.config.stickyRootComponent?.data.link]);
       });
     }
   }

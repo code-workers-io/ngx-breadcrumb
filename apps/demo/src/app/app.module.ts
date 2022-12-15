@@ -40,7 +40,7 @@ const routes: Routes = [
       fixedLead: 5,
       fixedTail: 5,
     },
-    stickyRootComponents: {
+    stickyRootComponent: {
       component: RootBreadcrumbComponent,
       data: {
         label: 'Home',
