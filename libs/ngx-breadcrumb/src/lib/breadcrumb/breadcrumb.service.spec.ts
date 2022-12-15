@@ -9,7 +9,7 @@ describe('BreadcrumbService', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       providers: [BreadcrumbService, RouterOutletTrackerService],
-    }),
+    })
   );
 
   it('should be created', () => {

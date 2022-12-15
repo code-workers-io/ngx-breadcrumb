@@ -11,15 +11,15 @@ import { ReplaySubject } from 'rxjs';
 export class Breadcrumb {
   //readonly title$: Observable<string>;
   title: string | undefined;
-   url: string | undefined | null;
+  url: string | undefined | null;
 
-  constructor(title: string| undefined,  url?: string | null | undefined) {
+  constructor(title: string | undefined, url?: string | null | undefined) {
     this.title = title;
-    this.url = url
+    this.url = url;
     const observer = new ReplaySubject<string>();
     //this.title$ = observer.asObservable();
-   //if (title) {
-     //(title instanceof Observable ? title : of(title)).subscribe(observer);
-   //}
+    //if (title) {
+    //(title instanceof Observable ? title : of(title)).subscribe(observer);
+    //}
   }
 }

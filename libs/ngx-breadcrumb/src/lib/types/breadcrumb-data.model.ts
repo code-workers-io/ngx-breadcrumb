@@ -5,7 +5,7 @@
  * * data structure for Route data
  */
 export interface BreadcrumbData {
-  label?: string ;
+  label?: string;
   link?: string | boolean | null | undefined;
 }
 
@@ -19,5 +19,5 @@ export function isBreadcrumbData(arg: any): arg is BreadcrumbData {
   const b1 = typeof tmp.label === 'string';
   // const b2 = tmp.label instanceof Observable;
   const b3 = 'boolean string'.includes(typeof tmp.link);
-  return b1 || b3 // || b2;
+  return b1 || b3; // || b2;
 }

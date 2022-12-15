@@ -1,13 +1,22 @@
-import {Inject, Injectable, OnDestroy, Optional} from '@angular/core';
-import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, PRIMARY_OUTLET, Router} from '@angular/router';
-import {asyncScheduler, BehaviorSubject, Subscription} from 'rxjs';
-import {filter, map, observeOn} from 'rxjs/operators';
-import {RouterOutletTrackerService} from './router-outlet-tracker.service';
-import {Breadcrumb} from '../types/breadcrumb.model';
-import {log} from './breadcrumb-console';
-import {NGX_BREADCRUMB_CONFIG, NgxBreadcrumbConfig} from '../config/ngx-breadcrumb-config';
-import {BreadcrumbFactoryService} from './breadcrumb-factory.service';
-import {DEFAULT_FIXED_LEAD, DEFAULT_FIXED_TAIL} from "../config/constants";
+import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  NavigationEnd,
+  PRIMARY_OUTLET,
+  Router,
+} from '@angular/router';
+import { asyncScheduler, BehaviorSubject, Subscription } from 'rxjs';
+import { filter, map, observeOn } from 'rxjs/operators';
+import { RouterOutletTrackerService } from './router-outlet-tracker.service';
+import { Breadcrumb } from '../types/breadcrumb.model';
+import { log } from './breadcrumb-console';
+import {
+  NGX_BREADCRUMB_CONFIG,
+  NgxBreadcrumbConfig,
+} from '../config/ngx-breadcrumb-config';
+import { BreadcrumbFactoryService } from './breadcrumb-factory.service';
+import { DEFAULT_FIXED_LEAD, DEFAULT_FIXED_TAIL } from '../config/constants';
 
 /**
  * @privateApi
@@ -24,9 +33,13 @@ export class BreadcrumbService implements OnDestroy {
   private subscriptions: Subscription = new Subscription();
   private _breadcrumbs$ = new BehaviorSubject<Breadcrumb[]>([]);
   readonly breadcrumbs$ = this._breadcrumbs$.asObservable();
-  private _fixedLead$ = new BehaviorSubject<number>(this.config?.breadcrumbCount?.fixedLead || DEFAULT_FIXED_LEAD);
+  private _fixedLead$ = new BehaviorSubject<number>(
+    this.config?.breadcrumbCount?.fixedLead || DEFAULT_FIXED_LEAD
+  );
   readonly fixedLead$ = this._fixedLead$.asObservable();
-  private _fixedTail$ = new BehaviorSubject<number>(this.config?.breadcrumbCount?.fixedTail || DEFAULT_FIXED_TAIL);
+  private _fixedTail$ = new BehaviorSubject<number>(
+    this.config?.breadcrumbCount?.fixedTail || DEFAULT_FIXED_TAIL
+  );
   readonly fixedTail$ = this._fixedTail$.asObservable();
   private _stickyRootBreadcrumbs: Breadcrumb[] = [];
 
@@ -35,31 +48,33 @@ export class BreadcrumbService implements OnDestroy {
     private router: Router,
     private tracker: RouterOutletTrackerService,
     private breadcrumbFactory: BreadcrumbFactoryService,
-    @Optional() @Inject(NGX_BREADCRUMB_CONFIG) private config: NgxBreadcrumbConfig,
+    @Optional()
+    @Inject(NGX_BREADCRUMB_CONFIG)
+    private config: NgxBreadcrumbConfig
   ) {
     if (config?.stickyRoot) {
-      this.setStickyRootBreadcrumbs(...config.stickyRoot)
+      this.setStickyRootBreadcrumbs(...config.stickyRoot);
     }
     // @ts-ignore
-    this.subscriptions.add(router.events
-      .pipe(
-        observeOn(asyncScheduler),
-        filter((event) => event instanceof NavigationEnd),
-        map((_) =>
-          Array.from(
-            PrimaryOutletActivatedRouteIterator.from(route.snapshot),
+    this.subscriptions.add(
+      router.events
+        .pipe(
+          observeOn(asyncScheduler),
+          filter((event) => event instanceof NavigationEnd),
+          map((_) =>
+            Array.from(PrimaryOutletActivatedRouteIterator.from(route.snapshot))
           ),
-        ),
-        map((routes: ActivatedRouteSnapshot[]) =>
-          this.buildBreadcrumbs(routes),
-        ),
-      )
-      // @ts-ignore
-      .subscribe((breadcrumbs) => this._breadcrumbs$.next(breadcrumbs)));
+          map((routes: ActivatedRouteSnapshot[]) =>
+            this.buildBreadcrumbs(routes)
+          )
+        )
+        // @ts-ignore
+        .subscribe((breadcrumbs) => this._breadcrumbs$.next(breadcrumbs))
+    );
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe()
+    this.subscriptions.unsubscribe();
   }
 
   /**
@@ -79,14 +94,12 @@ export class BreadcrumbService implements OnDestroy {
   /**
    * Set a list of breadcrumbs, which should always be rendered first
    */
-  setStickyRootBreadcrumbs(
-    ...items:  Breadcrumb[]
-  ): void {
+  setStickyRootBreadcrumbs(...items: Breadcrumb[]): void {
     this._stickyRootBreadcrumbs = items;
   }
 
   private buildBreadcrumbs(
-    routes: ActivatedRouteSnapshot[],
+    routes: ActivatedRouteSnapshot[]
   ): (Breadcrumb | null)[] {
     log('[Breadcrumb Service] building breadcrumbs for %O', routes);
 
@@ -108,9 +121,7 @@ class PrimaryOutletActivatedRouteIterator
 {
   constructor(private _next: ActivatedRouteSnapshot) {}
 
-  static from(
-    route: ActivatedRouteSnapshot,
-  ): Iterable<ActivatedRouteSnapshot> {
+  static from(route: ActivatedRouteSnapshot): Iterable<ActivatedRouteSnapshot> {
     return {
       [Symbol.iterator]() {
         return new PrimaryOutletActivatedRouteIterator(route);

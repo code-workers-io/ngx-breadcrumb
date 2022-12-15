@@ -11,6 +11,8 @@ export interface BreadcrumbProvider {
  * Typeguard function for {@link `BreadcrumbProvider`}
  * @param arg
  */
-export function isBreadcrumbProvider(arg: { getBreadcrumb: any; }): arg is BreadcrumbProvider {
+export function isBreadcrumbProvider(arg: {
+  getBreadcrumb: any;
+}): arg is BreadcrumbProvider {
   return !!arg && !!arg.getBreadcrumb;
 }

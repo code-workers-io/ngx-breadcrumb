@@ -1,12 +1,26 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  ComponentRef,
+  ContentChild,
+  Inject,
   Input,
+  Optional,
   TemplateRef,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Breadcrumb } from '../types/breadcrumb.model';
 import { BreadcrumbService } from './breadcrumb.service';
+import {
+  BreadcrumbComponent,
+  NGX_BREADCRUMB_CONFIG,
+  NGX_STICKY_BREADCRUMB,
+  NgxBreadcrumbConfig,
+} from '../config/ngx-breadcrumb-config';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-breadcrumbs',
@@ -17,7 +31,7 @@ import { BreadcrumbService } from './breadcrumb.service';
     [fixedTail]="(fixedTail$ | async)!"
   >
     <!--    Sticky Root Component-->
-    <ng-content></ng-content>
+    <ng-container #stickyContainer></ng-container>
     <ng-container
       *ngFor="let breadcrumb of breadcrumbs$ | async; let last = last"
     >
@@ -80,13 +94,32 @@ import { BreadcrumbService } from './breadcrumb.service';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgxBreadcrumbsComponent {
-  // todo container around ng content and restrict widht and height
+export class NgxBreadcrumbsComponent implements AfterViewInit {
+  @ViewChild('stickyContainer', { read: ViewContainerRef })
+  stickyContainer!: ViewContainerRef;
   @Input() separatorTemplate: TemplateRef<unknown> | null = null;
   @Input() breadcrumbTemplate: TemplateRef<unknown> | null = null;
 
   breadcrumbs$: Observable<Breadcrumb[]> = this.breadcrumbsService.breadcrumbs$;
   fixedLead$: Observable<number> = this.breadcrumbsService.fixedLead$;
   fixedTail$: Observable<number> = this.breadcrumbsService.fixedTail$;
-  constructor(private readonly breadcrumbsService: BreadcrumbService) {}
+  constructor(
+    private readonly breadcrumbsService: BreadcrumbService,
+    private readonly router: Router,
+    @Optional()
+    @Inject(NGX_BREADCRUMB_CONFIG)
+    private readonly config: NgxBreadcrumbConfig
+  ) {}
+
+  ngAfterViewInit() {
+    if (this.config?.stickyRootComponents) {
+      const componentRef: ComponentRef<BreadcrumbComponent> =
+        this.stickyContainer.createComponent(
+          this.config.stickyRootComponents.component
+        );
+      componentRef.instance.click.subscribe(() => {
+        this.router.navigate([this.config.stickyRootComponents?.data.link]);
+      });
+    }
+  }
 }

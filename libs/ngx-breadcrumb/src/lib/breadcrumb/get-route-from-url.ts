@@ -1,4 +1,6 @@
-export function getRouteFromUrl(url: string | null | undefined): string | undefined {
+export function getRouteFromUrl(
+  url: string | null | undefined
+): string | undefined {
   const urlObject = toUrl(url);
   if (urlObject?.origin === window.location.origin) {
     // return relative url (aka. route)
@@ -7,7 +9,7 @@ export function getRouteFromUrl(url: string | null | undefined): string | undefi
   return undefined;
 }
 
-function toUrl(arg: string | null | undefined): URL | null | undefined  {
+function toUrl(arg: string | null | undefined): URL | null | undefined {
   if (typeof arg !== 'string') {
     // shit in --> shit out
     return arg;

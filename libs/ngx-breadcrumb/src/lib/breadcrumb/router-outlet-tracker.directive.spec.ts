@@ -22,10 +22,10 @@ describe('ComponentActivationTrackerDirective', () => {
   it('should create an instance', () => {
     const component = TestBed.createComponent(TestComponent);
     const debugElement = component.debugElement.query(
-      By.directive(RouterOutletTrackerDirective),
+      By.directive(RouterOutletTrackerDirective)
     );
     expect(
-      debugElement.injector.get(RouterOutletTrackerDirective),
+      debugElement.injector.get(RouterOutletTrackerDirective)
     ).toBeTruthy();
   });
 });

@@ -1,6 +1,15 @@
-import { InjectionToken } from '@angular/core';
+import { EventEmitter, InjectionToken, Type } from '@angular/core';
 import { Breadcrumb } from '../types/breadcrumb.model';
+import { BreadcrumbData } from '../types/breadcrumb-data.model';
 
+export interface BreadcrumbComponent {
+  click: EventEmitter<void>;
+}
+
+export interface StickyRootBreadcrumbConfig {
+  component: Type<BreadcrumbComponent>;
+  data: BreadcrumbData;
+}
 
 export interface NgxBreadcrumbConfig {
   /**
@@ -18,6 +27,7 @@ export interface NgxBreadcrumbConfig {
      */
     fixedTail: number;
   };
+  stickyRootComponents?: StickyRootBreadcrumbConfig;
 }
 
 export const NGX_BREADCRUMB_CONFIG = new InjectionToken<NgxBreadcrumbConfig>(
