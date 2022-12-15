@@ -1,8 +1,7 @@
 import {Component, OnInit, NgModule, EventEmitter, forwardRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {NGX_STICKY_BREADCRUMB, StickyBreadcrumb} from "@code-workers.io/ngx-breadcrumb";
-import {Breadcrumb} from "../../../../libs/ngx-breadcrumb/src/lib/breadcrumb/breadcrumb.model";
-import {BreadcrumbData} from "../../../../libs/ngx-breadcrumb/src/lib/breadcrumb/breadcrumb-data.model";
+
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'ngx-breadcrumb-root-breadcrumb',
@@ -21,29 +20,17 @@ import {BreadcrumbData} from "../../../../libs/ngx-breadcrumb/src/lib/breadcrumb
       padding: 8px;
     }
 
-  `],
-  providers: [
-    {
-      provide: NGX_STICKY_BREADCRUMB,
-      useExisting: forwardRef(() => RootBreadcrumbComponent),
-    }
-  ]
+  `]
 })
-export class RootBreadcrumbComponent implements OnInit, StickyBreadcrumb {
-  breadcrumbClicked: EventEmitter<void> = new EventEmitter<void>();
-  constructor() {}
+export class RootBreadcrumbComponent implements OnInit {
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
   onClick() {
-    this.breadcrumbClicked.emit();
+    this.router.navigate(['/']);
   }
-
-  getBreadcrumb(): BreadcrumbData {
-    return {label: 'Home', link: '/'};
-  }
-
-
 }
 
 @NgModule({
