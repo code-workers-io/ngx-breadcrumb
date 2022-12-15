@@ -1,9 +1,9 @@
 import { ActivatedRouteSnapshot, UrlSegment } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { RouterOutletTrackerService } from './router-outlet-tracker.service';
-import { BreadcrumbProvider, isBreadcrumbProvider } from './breadcrumb-provider';
-import { BreadcrumbData, isBreadcrumbData } from './breadcrumb-data.model';
-import { Breadcrumb } from './breadcrumb.model';
+import { BreadcrumbProvider, isBreadcrumbProvider } from '../types/breadcrumb-provider';
+import { BreadcrumbData, isBreadcrumbData } from '../types/breadcrumb-data.model';
+import { Breadcrumb } from '../types/breadcrumb.model';
 import { error, log } from './breadcrumb-console';
 import { Injectable } from '@angular/core';
 
