@@ -27,7 +27,7 @@ export interface NgxBreadcrumbConfig {
      */
     fixedTail: number;
   };
-  stickyRootComponents?: StickyRootBreadcrumbConfig;
+  stickyRootComponent?: StickyRootBreadcrumbConfig;
 }
 
 export const NGX_BREADCRUMB_CONFIG = new InjectionToken<NgxBreadcrumbConfig>(
