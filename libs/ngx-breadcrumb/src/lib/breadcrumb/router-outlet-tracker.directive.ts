@@ -16,10 +16,7 @@ import { log } from './breadcrumb-console';
 export class RouterOutletTrackerDirective implements OnDestroy {
   private destroyed$ = new Subject<void>();
 
-  constructor(
-    routerOutlet: RouterOutlet,
-    tracker: RouterOutletTrackerService,
-  ) {
+  constructor(routerOutlet: RouterOutlet, tracker: RouterOutletTrackerService) {
     routerOutlet.activateEvents
       .pipe(takeUntil(this.destroyed$))
       .subscribe((event) => {

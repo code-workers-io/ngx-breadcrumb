@@ -3,7 +3,9 @@ import { NgxBreadcrumbTranslationAdapter } from './ngx-breadcrumb-translation-ad
 
 describe('NgxBreadcrumbTranslatorPipe', () => {
   it('create an instance', () => {
-    const pipe = new NgxBreadcrumbTranslatorPipe(mockDefaultNgxBreadcrumbTranslationAdapterService());
+    const pipe = new NgxBreadcrumbTranslatorPipe(
+      mockDefaultNgxBreadcrumbTranslationAdapterService()
+    );
     expect(pipe).toBeTruthy();
   });
 });

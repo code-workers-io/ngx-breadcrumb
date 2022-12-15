@@ -7,17 +7,14 @@ import { BreadcrumbService } from './breadcrumb/breadcrumb.service';
  * Service for manipulating the breadcrumbs.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NgxBreadcrumbProviderService {
-
-  constructor(private readonly breadcrumbService: BreadcrumbService) { }
+  constructor(private readonly breadcrumbService: BreadcrumbService) {}
   /**
    * Set a list of breadcrumbs, which should always be rendered first
    */
-  setStickyRootBreadcrumbs(
-    ...items:  Breadcrumb[]
-  ): void {
-    this.breadcrumbService.setStickyRootBreadcrumbs(...items)
+  setStickyRootBreadcrumbs(...items: Breadcrumb[]): void {
+    this.breadcrumbService.setStickyRootBreadcrumbs(...items);
   }
 }

@@ -11,9 +11,9 @@ describe('NgxBreadcrumbProviderService', () => {
       providers: [
         {
           provide: BreadcrumbService,
-          useValue: createBreadcrumbServiceMock()
-        }
-      ]
+          useValue: createBreadcrumbServiceMock(),
+        },
+      ],
     });
     service = TestBed.inject(NgxBreadcrumbProviderService);
   });

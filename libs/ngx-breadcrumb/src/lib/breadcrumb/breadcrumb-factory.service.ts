@@ -1,15 +1,20 @@
 import { ActivatedRouteSnapshot, UrlSegment } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { RouterOutletTrackerService } from './router-outlet-tracker.service';
-import { BreadcrumbProvider, isBreadcrumbProvider } from '../types/breadcrumb-provider';
-import { BreadcrumbData, isBreadcrumbData } from '../types/breadcrumb-data.model';
+import {
+  BreadcrumbProvider,
+  isBreadcrumbProvider,
+} from '../types/breadcrumb-provider';
+import {
+  BreadcrumbData,
+  isBreadcrumbData,
+} from '../types/breadcrumb-data.model';
 import { Breadcrumb } from '../types/breadcrumb.model';
 import { error, log } from './breadcrumb-console';
 import { Injectable } from '@angular/core';
 
-
-@Injectable({providedIn: 'root'})
-export class BreadcrumbFactoryService   {
+@Injectable({ providedIn: 'root' })
+export class BreadcrumbFactoryService {
   /**
    * Creates a new `Breadcrumb` instance based on the provided route.
    *
@@ -25,7 +30,7 @@ export class BreadcrumbFactoryService   {
     // fail-fast; should never happen
     if (!route) {
       error(
-        '[Breadcrumb Factory] NullPointerException: route must not be null',
+        '[Breadcrumb Factory] NullPointerException: route must not be null'
       );
       return null;
     }
@@ -40,7 +45,7 @@ export class BreadcrumbFactoryService   {
       log(
         '[Breadcrumb Factory] breadcrumb disabled for %O ("%s")',
         route,
-        routeUrl,
+        routeUrl
       );
       return null;
     }
@@ -50,7 +55,7 @@ export class BreadcrumbFactoryService   {
         '[Breadcrumb Factory] could not find active component for %O ("%s").\n' +
           'Have you thought of importing the BreadcrumbModule into the declaring feature module?',
         route,
-        routeUrl,
+        routeUrl
       );
     }
 
@@ -59,7 +64,7 @@ export class BreadcrumbFactoryService   {
       log(
         '[Breadcrumb Factory] breadcrumb not configured for %O ("%s")',
         route,
-        routeUrl,
+        routeUrl
       );
       return null;
     }
@@ -77,7 +82,7 @@ export class BreadcrumbFactoryService   {
       '[Breadcrumb Factory] identified breadcrumb data %o for %O ("%s")',
       bc,
       route,
-      routeUrl,
+      routeUrl
     );
 
     return new Breadcrumb(bc?.label, bc?.link);
@@ -91,11 +96,10 @@ export class BreadcrumbFactoryService   {
    * > **Notice:** this method just checks if a `getBreadcrumb()` method is present!
    */
   private getBreadcrumbDataFromComponent(
-    component: BreadcrumbProvider | never,
+    component: BreadcrumbProvider | never
   ): BreadcrumbData | null {
     return (
-      (isBreadcrumbProvider(component) && component.getBreadcrumb()) ||
-      null
+      (isBreadcrumbProvider(component) && component.getBreadcrumb()) || null
     );
   }
 
@@ -108,8 +112,8 @@ export class BreadcrumbFactoryService   {
    * @param route
    */
   private getBreadcrumbDataFromRoute(
-    route: ActivatedRouteSnapshot,
-  ): BreadcrumbData | null{
+    route: ActivatedRouteSnapshot
+  ): BreadcrumbData | null {
     const routeData =
       (route && route.routeConfig && route.routeConfig.data) || {};
     if (!routeData || !routeData['breadcrumb']) {
@@ -171,10 +175,12 @@ export class BreadcrumbFactoryService   {
    * Returns all UrlSegments from provided route to root path
    * (non-recursive version)
    */
-  private getUrlSegments(route: ActivatedRouteSnapshot | null | undefined): UrlSegment[] {
+  private getUrlSegments(
+    route: ActivatedRouteSnapshot | null | undefined
+  ): UrlSegment[] {
     const result = [];
     do {
-      if (route?.url){
+      if (route?.url) {
         result.unshift(...route.url);
       }
 

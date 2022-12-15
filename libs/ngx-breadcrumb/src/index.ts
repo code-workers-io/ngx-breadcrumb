@@ -11,7 +11,6 @@ export * from './lib/translation-adapter/ngx-breadcrumb-translator.pipe';
 
 export * from './lib/ngx-breadcrumb-provider.service';
 export * from './lib/breadcrumb/ngx-breadcrumbs.component';
-export * from './lib/breadcrumb/breadcrumb.component';
+//export * from './lib/breadcrumb/breadcrumb.component';
 export * from './lib/breadcrumb/breadcrumbs.component';
 export * from './lib/breadcrumb/router-outlet-tracker.directive';
-

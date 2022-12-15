@@ -24,7 +24,7 @@ describe('BreadcrumbModule with TestBed', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, NgxBreadcrumbModule],
-      declarations: [RouterOutletTestComponent]
+      declarations: [RouterOutletTestComponent],
     });
   });
 
@@ -49,7 +49,7 @@ describe('BreadcrumbModule with TestBed', () => {
 
 @Component({
   selector: 'test-router-outlet',
-  template: '<router-outlet></router-outlet>'
+  template: '<router-outlet></router-outlet>',
 })
 class RouterOutletTestComponent {
   @ViewChild(RouterOutletTrackerDirective, { static: true })
