@@ -23,7 +23,7 @@ import { Subscription } from 'rxjs';
           var(--ngx-breadcrumb-container-padding, 0.5rem 0.5rem 0.5rem 0.5rem)
         );
         margin: (var(--ngx-breadcrumb-container-margin, 0));
-        width: fit-content;
+        width: (var(--ngx-breadcrumb-container-width, fit-content));
         background-color: (var(--ngx-breadcrumb-container-bg-color, inherit));
         gap: (var(--ngx-breadcrumb-gap-between, 0.5rem));
       }

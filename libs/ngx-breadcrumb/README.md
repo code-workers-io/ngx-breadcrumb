@@ -323,6 +323,7 @@ The `breadcrumb-container`
 - `--ngx-breadcrumb-container-margin`: the margin of the breadcrumb container.
 - `--ngx-breadcrumb-container-bg-color`: the background color of the breadcrumb container.
 - `--ngx-breadcrumb-gap-between`: gap between breadcrumbs. Default: `0.5rem`.
+- `--ngx-breadcrumb-container-width`: the width of the breadcrumb container. Default: `fit-content`.
 - The `breadcrumb` itself:
 - `--ngx-breadcrumb-padding`: padding of the breadcrumb. Default: `0.5rem`.
 - `--ngx-breadcrumb-margin`: the margin of the breadcrumb.
