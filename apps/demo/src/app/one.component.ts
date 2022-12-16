@@ -5,7 +5,8 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'ngx-libs-one',
   template: `
-  <h1>One</h1>
+  one-works
+  <br/>
   <button (click)='toOneOne()'>oneone</button>
   <router-outlet></router-outlet>
   `,

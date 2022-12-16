@@ -4,9 +4,16 @@
 <ngx-breadcrumbs>
 
 </ngx-breadcrumbs>
-<button (click)="toOne()">One</button>
-<button (click)='toTwo()'>Two</button>
-<router-outlet></router-outlet>
+<div class="container">
+  <h2>Trigger routing</h2>
+  <button (click)="toOne()">One</button>
+  <button (click)='toTwo()'>Two</button>
+  <div class="routing-container">
+    <h2>Routed components</h2>
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
 <ng-template #sep>
   //
 </ng-template>
