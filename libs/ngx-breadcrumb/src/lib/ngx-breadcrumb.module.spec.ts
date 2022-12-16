@@ -3,9 +3,9 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component, ViewChild } from '@angular/core';
 import { NgxBreadcrumbModule } from './ngx-breadcrumb.module';
-import { BreadcrumbsComponent } from './breadcrumb/breadcrumbs.component';
-import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
-import { BreadcrumbService } from './breadcrumb/breadcrumb.service';
+import { BreadcrumbsComponent } from './breadcrumb/components/breadcrumbs.component';
+import { BreadcrumbComponent } from './breadcrumb/components/breadcrumb.component';
+import { BreadcrumbService } from './breadcrumb/services/breadcrumb.service';
 import { RouterOutletTrackerDirective } from './breadcrumb/router-outlet-tracker.directive';
 
 describe('NgxBreadcrumbModule', () => {

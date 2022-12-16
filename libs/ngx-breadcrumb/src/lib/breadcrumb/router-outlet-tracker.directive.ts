@@ -2,8 +2,9 @@ import { Directive, OnDestroy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { RouterOutletTrackerService } from './router-outlet-tracker.service';
-import { log } from './breadcrumb-console';
+import {RouterOutletTrackerService} from "./services/router-outlet-tracker.service";
+import {log} from "./utils/breadcrumb-console";
+
 
 /**
  * This directive, when available in a module, will register itself automatically on `<router-outlet>` activation and deactivation events

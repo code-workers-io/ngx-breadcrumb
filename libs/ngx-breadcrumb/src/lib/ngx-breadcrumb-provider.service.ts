@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Breadcrumb } from './types/breadcrumb.model';
-import { BreadcrumbService } from './breadcrumb/breadcrumb.service';
+import { BreadcrumbService } from './breadcrumb/services/breadcrumb.service';
+import {Breadcrumb} from "./breadcrumb/types/breadcrumb.model";
 
 /**
  * @publicApi

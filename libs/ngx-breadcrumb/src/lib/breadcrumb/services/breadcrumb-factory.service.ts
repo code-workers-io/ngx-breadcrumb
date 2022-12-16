@@ -10,7 +10,7 @@ import {
   isBreadcrumbData,
 } from '../types/breadcrumb-data.model';
 import { Breadcrumb } from '../types/breadcrumb.model';
-import { error, log } from './breadcrumb-console';
+import { error, log } from '../utils/breadcrumb-console';
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })

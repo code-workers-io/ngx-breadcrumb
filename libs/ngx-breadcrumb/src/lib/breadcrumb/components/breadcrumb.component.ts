@@ -8,7 +8,7 @@ import {
 import { delay, map, switchMap, tap } from 'rxjs/operators';
 import { combineLatest, of, ReplaySubject } from 'rxjs';
 import { Breadcrumb } from '../types/breadcrumb.model';
-import { getRouteFromUrl } from './get-route-from-url';
+import { getRouteFromUrl } from '../utils/get-route-from-url';
 
 /**
  * Renders a single breadcrumb.

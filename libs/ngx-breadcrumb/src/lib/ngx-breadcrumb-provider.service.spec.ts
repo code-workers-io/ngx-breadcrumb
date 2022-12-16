@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { NgxBreadcrumbProviderService } from './ngx-breadcrumb-provider.service';
-import { BreadcrumbService } from './breadcrumb/breadcrumb.service';
+import { BreadcrumbService } from './breadcrumb/services/breadcrumb.service';
 
 describe('NgxBreadcrumbProviderService', () => {
   let service: NgxBreadcrumbProviderService;
