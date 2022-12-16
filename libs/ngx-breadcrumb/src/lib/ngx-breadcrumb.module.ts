@@ -2,11 +2,11 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RouterModule } from '@angular/router';
-import { BreadcrumbsComponent } from './breadcrumb/breadcrumbs.component';
-import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { BreadcrumbsComponent } from './breadcrumb/components/breadcrumbs.component';
+import { BreadcrumbComponent } from './breadcrumb/components/breadcrumb.component';
 import { RouterOutletTrackerDirective } from './breadcrumb/router-outlet-tracker.directive';
-import { NgxBreadcrumbsComponent } from './breadcrumb/ngx-breadcrumbs.component';
-import { BreadcrumbConsoleSettings } from './breadcrumb/breadcrumb-console';
+import { NgxBreadcrumbsComponent } from './breadcrumb/components/ngx-breadcrumbs.component';
+import { BreadcrumbConsoleSettings } from './breadcrumb/utils/breadcrumb-console';
 import {
   NGX_BREADCRUMB_CONFIG,
   NgxBreadcrumbConfig,

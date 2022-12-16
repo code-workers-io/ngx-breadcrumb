@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-
-import { RouterOutletTrackerService } from './router-outlet-tracker.service';
+import {RouterOutletTrackerService} from "./services/router-outlet-tracker.service";
 
 describe('ActiveComponentTrackerService', () => {
   beforeEach(() =>

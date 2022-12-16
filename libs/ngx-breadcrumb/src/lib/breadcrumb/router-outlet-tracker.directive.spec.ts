@@ -1,9 +1,9 @@
 import { RouterOutletTrackerDirective } from './router-outlet-tracker.directive';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RouterOutletTrackerService } from './router-outlet-tracker.service';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import {RouterOutletTrackerService} from "./services/router-outlet-tracker.service";
 
 @Component({
   template: ` <router-outlet></router-outlet>`,

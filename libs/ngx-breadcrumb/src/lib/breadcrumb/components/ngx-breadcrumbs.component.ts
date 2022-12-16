@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ComponentRef,
-  ContentChild,
   Inject,
   Input,
   Optional,
@@ -13,12 +12,12 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Breadcrumb } from '../types/breadcrumb.model';
-import { BreadcrumbService } from './breadcrumb.service';
+import { BreadcrumbService } from '../services/breadcrumb.service';
 import {
   BreadcrumbComponent,
   NGX_BREADCRUMB_CONFIG,
   NgxBreadcrumbConfig,
-} from '../config/ngx-breadcrumb-config';
+} from '../../config/ngx-breadcrumb-config';
 import { Router } from '@angular/router';
 
 @Component({

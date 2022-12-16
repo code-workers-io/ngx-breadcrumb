@@ -1,6 +1,6 @@
 import { EventEmitter, InjectionToken, Type } from '@angular/core';
-import { Breadcrumb } from '../types/breadcrumb.model';
-import { BreadcrumbData } from '../types/breadcrumb-data.model';
+import { BreadcrumbData } from '../breadcrumb/types/breadcrumb-data.model';
+import { Breadcrumb } from '../breadcrumb/types/breadcrumb.model';
 
 export interface BreadcrumbComponent {
   click: EventEmitter<void>;
