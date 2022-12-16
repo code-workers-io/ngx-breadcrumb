@@ -17,7 +17,7 @@ import {
 } from '../../config/ngx-breadcrumb-config';
 import { BreadcrumbFactoryService } from './breadcrumb-factory.service';
 import { DEFAULT_FIXED_LEAD, DEFAULT_FIXED_TAIL } from '../../config/constants';
-import {log} from "../utils/breadcrumb-console";
+import { log } from '../utils/breadcrumb-console';
 
 /**
  * @privateApi

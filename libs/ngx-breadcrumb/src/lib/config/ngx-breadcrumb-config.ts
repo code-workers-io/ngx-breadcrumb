@@ -1,15 +1,6 @@
-import { EventEmitter, InjectionToken, Type } from '@angular/core';
-import { BreadcrumbData } from '../breadcrumb/types/breadcrumb-data.model';
+import { InjectionToken } from '@angular/core';
 import { Breadcrumb } from '../breadcrumb/types/breadcrumb.model';
-
-export interface BreadcrumbComponent {
-  click: EventEmitter<void>;
-}
-
-export interface StickyRootBreadcrumbConfig {
-  component: Type<BreadcrumbComponent>;
-  data: BreadcrumbData;
-}
+import { StickyRootBreadcrumbConfig } from '../breadcrumb/types/sticky-root-breadcrumb-config';
 
 export interface NgxBreadcrumbConfig {
   /**

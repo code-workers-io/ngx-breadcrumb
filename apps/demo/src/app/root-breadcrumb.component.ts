@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 
 import { Router } from '@angular/router';
 import {
-  BreadcrumbComponent,
+  StickyBreadcrumbComponent,
   BreadcrumbData,
 
 } from '@code-workers.io/ngx-breadcrumb';
@@ -44,7 +44,7 @@ import {
     `,
   ]
 })
-export class RootBreadcrumbComponent implements OnInit, BreadcrumbComponent {
+export class RootBreadcrumbComponent implements OnInit, StickyBreadcrumbComponent {
   click: EventEmitter<void> = new EventEmitter<void>()
 
   constructor(private router: Router) {}
