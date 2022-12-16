@@ -18,7 +18,7 @@ import {
   NgxBreadcrumbConfig,
 } from '../../config/ngx-breadcrumb-config';
 import { Router } from '@angular/router';
-import {StickyBreadcrumbComponent} from "../types/sticky-breadcrumb-component";
+import { StickyBreadcrumbComponent } from '../types/sticky-breadcrumb-component';
 
 @Component({
   selector: 'ngx-breadcrumbs',

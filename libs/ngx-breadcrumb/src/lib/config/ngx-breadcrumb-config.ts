@@ -1,9 +1,6 @@
-import {InjectionToken} from '@angular/core';
-import {Breadcrumb} from '../breadcrumb/types/breadcrumb.model';
-import {StickyRootBreadcrumbConfig} from "../breadcrumb/types/sticky-root-breadcrumb-config";
-
-
-
+import { InjectionToken } from '@angular/core';
+import { Breadcrumb } from '../breadcrumb/types/breadcrumb.model';
+import { StickyRootBreadcrumbConfig } from '../breadcrumb/types/sticky-root-breadcrumb-config';
 
 export interface NgxBreadcrumbConfig {
   /**

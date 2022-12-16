@@ -16,4 +16,3 @@ export * from './lib/breadcrumb/components/ngx-breadcrumbs.component';
 export * from './lib/breadcrumb/components/breadcrumb.component';
 export * from './lib/breadcrumb/components/breadcrumbs.component';
 export * from './lib/breadcrumb/router-outlet-tracker.directive';
-
