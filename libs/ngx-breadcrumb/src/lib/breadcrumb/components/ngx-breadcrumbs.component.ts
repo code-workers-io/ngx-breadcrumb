@@ -14,11 +14,11 @@ import { Observable } from 'rxjs';
 import { Breadcrumb } from '../types/breadcrumb.model';
 import { BreadcrumbService } from '../services/breadcrumb.service';
 import {
-  BreadcrumbComponent,
   NGX_BREADCRUMB_CONFIG,
   NgxBreadcrumbConfig,
 } from '../../config/ngx-breadcrumb-config';
 import { Router } from '@angular/router';
+import {StickyBreadcrumbComponent} from "../types/sticky-breadcrumb-component";
 
 @Component({
   selector: 'ngx-breadcrumbs',
@@ -111,7 +111,7 @@ export class NgxBreadcrumbsComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     if (this.config?.stickyRootComponent) {
-      const componentRef: ComponentRef<BreadcrumbComponent> =
+      const componentRef: ComponentRef<StickyBreadcrumbComponent> =
         this.stickyContainer.createComponent(
           this.config.stickyRootComponent.component
         );
