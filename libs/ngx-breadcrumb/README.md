@@ -105,16 +105,30 @@ export class AppModule {}
 
 You can provide a root breadcrumb component which will be rendered in front of the breadcrumbs dervived from the route.
 
-Simply include your component inside the `ngx-breadcrumbs`-tag:
+Simply configure it in your `app.module.ts`:
 
 ```typescript
-<ngx-breadcrumbs>
-  <my-root-breadcrumb></my-root-breadcrumb>
-</ngx-breadcrumbs>;
+NgxBreadcrumbModule.withConfig({
+  stickyRoot: [
+    new Breadcrumb('Home', '/'),
+    new Breadcrumb('Home1', '/')
+  ],
+  breadcrumbCount: {
+    fixedLead: 5,
+    fixedTail: 5,
+  },
+  stickyRootComponent: {
+    component: RootBreadcrumbComponent,
+    data: {
+      label: 'Home',
+      link: '/'
+    }
+  }
+})
 
 // component
 @Component({
-  selector: 'my-root-breadcrumb',
+  selector: 'root-breadcrumb',
   template: `
     <svg
       (click)="onClick()"
@@ -135,26 +149,33 @@ Simply include your component inside the `ngx-breadcrumbs`-tag:
         place-items: center;
         width: 24px;
         height: 24px;
-        border: 1px solid #ccc;
+        border: 1px solid #e2e8f0;
         border-radius: 100%;
-        background-color: #ccc;
+        background-color: #e2e8f0;
         padding: 8px;
       }
     `,
-  ],
+  ]
 })
-export class MyRootBreadcrumbComponent implements OnInit {
+export class RootBreadcrumbComponent implements StickyBreadcrumbComponent {
+  click: EventEmitter<void> = new EventEmitter<void>()
+
   constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  getBreadcrumb(): BreadcrumbData {
+    return {
+      label: 'Home',
+      link: '/',
+    };
+  }
 
   onClick() {
-    this.router.navigate(['/']);
+    this.click.emit(void 0)
   }
 }
 ```
 
-Note: right now you need to trigger navigation by yourself. This will be improved in the future.
+Note: you need to implement the `StickyBreadcrumbComponent`-interface so that it will work properly.
 
 ### Additional info on Route setup
 
