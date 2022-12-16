@@ -36,9 +36,9 @@ import {
         place-items: center;
         width: 24px;
         height: 24px;
-        border: 1px solid #ccc;
+        border: 1px solid #e2e8f0;
         border-radius: 100%;
-        background-color: #ccc;
+        background-color: #e2e8f0;
         padding: 8px;
       }
     `,
