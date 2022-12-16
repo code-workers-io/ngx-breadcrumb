@@ -94,3 +94,5 @@ Must be one of the following:
 - **refactor**: A code change that neither fixes a bug nor adds a feature
 - **test**: Adding missing tests or correcting existing tests
 - **chore**: Changes to our CI configuration files and scripts
+
+The commit messages are linted using [commitlint](https://github.com/conventional-changelog/commitlint).
