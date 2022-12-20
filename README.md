@@ -14,9 +14,9 @@ npm install --save @code-workers.io/ngx-breadcrumb
 
 
 ## Usage
-### Import the `BreadcrumbModule` module into your AppModule
+### Import the `NgxBreadcrumbModule` module into your AppModule
 
-> You must import the `BreadcrumbModule` into lazy-loaded modules, too.
+> You must import the `NgxBreadcrumbModule` into lazy-loaded modules, too.
 > Otherwise, no breadcrumbs will be rendered for the sub-routes of the
 > lazy-loaded module.
 
