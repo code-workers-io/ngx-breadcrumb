@@ -23,10 +23,10 @@ npm install --save @code-workers.io/ngx-breadcrumb
 ```typescript
 // app.module.ts
 
-import { BreadcrumbModule } from '@igpm/core';
+import { BreadcrumbModule } from '@code-workers.io/ngx-breadcrumb';
 
 @NgModule({
-  imports: [BreadcrumbModule],
+  imports: [NgxBreadcrumbModule],
 })
 export class AppModule {}
 ```
