@@ -10,10 +10,11 @@
 ```bash
 npm install --save @code-workers.io/ngx-breadcrumb
 ```
+
 ## Demo
 
-
 ## Usage
+
 ### Import the `NgxBreadcrumbModule` module into your AppModule
 
 > You must import the `NgxBreadcrumbModule` into lazy-loaded modules, too.
@@ -23,22 +24,22 @@ npm install --save @code-workers.io/ngx-breadcrumb
 ```typescript
 // app.module.ts
 
-import { BreadcrumbModule } from '@code-workers.io/ngx-breadcrumb';
+import { NgxBreadcrumbModule } from '@code-workers.io/ngx-breadcrumb';
 
 @NgModule({
   imports: [NgxBreadcrumbModule],
 })
 export class AppModule {}
 ```
+
 ### Provide Breadcrumbs
+
 #### Setup breadcrumb data in your route configuration
 
 ```typescript
 // app-routing.module.ts
 
-const routes: Routes = [
-  { path: 'example', data: { breadcrumb: 'Example' } },
-];
+const routes: Routes = [{ path: 'example', data: { breadcrumb: 'Example' } }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
@@ -46,6 +47,7 @@ const routes: Routes = [
 })
 export class AppRoutingModule {}
 ```
+
 #### Implement the `BreadcrumbProvider` interface (Optional)
 
 > Some components need a dynamic breadcrumb label, e.g. editor components.
@@ -67,12 +69,14 @@ export class MyEditorComponent implements BreadcrumbProvider {
 ```
 
 ### Provide root breadcrumb(s)
+
 Root breadcrumb(s) are breadcrumbs which are rendered in front of the breadcrumbs dervived from the route. This
 can e.g. be a "home"-breadcrumb.
 
 You can provide root breadcrumbs either programmatically or by configuration.
 
 #### Programmatically
+
 ```typescript
 // app.component.ts
 // ...
@@ -84,22 +88,89 @@ constructor(private breadcrumbProviderService: NgxBreadcrumbProviderService) {
 ```
 
 #### Configuration
+
 ```typescript
 // app.module.ts
 @NgModule({
-  imports: [ NgxBreadcrumbModule.withConfig({
-    stickyRoot: [
-      new Breadcrumb('Home', '/'),
-      new Breadcrumb('Home1', '/')
-    ]
-  })]
+  imports: [
+    NgxBreadcrumbModule.withConfig({
+      stickyRoot: [new Breadcrumb('Home', '/'), new Breadcrumb('Home1', '/')],
+    }),
+  ],
 })
 export class AppModule {}
 ```
 
+#### Provide a root breadcrumb component
 
+You can provide a root breadcrumb component which will be rendered in front of the breadcrumbs dervived from the route.
+
+Simply configure it in your `app.module.ts`:
+
+```typescript
+NgxBreadcrumbModule.withConfig({
+  stickyRootComponent: {
+    component: RootBreadcrumbComponent,
+    data: {
+      label: 'Home',
+      link: '/'
+    }
+  }
+})
+
+// component
+@Component({
+  selector: 'root-breadcrumb',
+  template: `
+    <svg
+      (click)="onClick()"
+      cursor="pointer"
+      xmlns="http://www.w3.org/2000/svg"
+      height="24"
+      width="24"
+    >
+      <path
+        d="M6 19h3v-6h6v6h3v-9l-6-4.5L6 10Zm-2 2V9l8-6 8 6v12h-7v-6h-2v6Zm8-8.75Z"
+      />
+    </svg>
+  `,
+  styles: [
+    `
+      :host {
+        display: grid;
+        place-items: center;
+        width: 24px;
+        height: 24px;
+        border: 1px solid #e2e8f0;
+        border-radius: 100%;
+        background-color: #e2e8f0;
+        padding: 8px;
+      }
+    `,
+  ]
+})
+export class RootBreadcrumbComponent implements StickyBreadcrumbComponent {
+  click: EventEmitter<void> = new EventEmitter<void>()
+
+  constructor(private router: Router) {}
+
+  getBreadcrumb(): BreadcrumbData {
+    return {
+      label: 'Home',
+      link: '/',
+    };
+  }
+
+  onClick() {
+    this.click.emit(void 0)
+  }
+}
+```
+
+Note: you need to implement the `StickyBreadcrumbComponent`-interface so that it will work properly.
 
 ### Additional info on Route setup
+
 For static breadcrumb configuration, you have to provide the required data with the route setup.
 Therefore add a `breadcrumb` segment to the Route's `data` attribute.
 
@@ -203,7 +274,9 @@ const routes: Routes = [
 ```
 
 ### Futher configuration
-The NgxBreadcrumbModule` accepts the `NgxBreadcrumbConfig` configuration-object:
+
+The NgxBreadcrumbModule`accepts the`NgxBreadcrumbConfig` configuration-object:
+
 - `breadcrumbCount.fixedLead`: number of visible leading breadcrumbs. Default: 1.
 - `breadcrumbCount.fixedTail`: number of visible trailing breadcrumbs. Default: 2.
 
@@ -211,26 +284,25 @@ With this configuration you can control the number of breadcrumbs which are rend
 between are just rendered as dots.
 
 # Customization
+
 There are two ways to for customization: via `ng-template` and/or via CSS custom properties
 
 ### Customization via `ng-template`
-#### Breadcrumb customization 
-```html
-<ngx-breadcrumbs [breadcrumbTemplate]='bc'></ngx-breadcrumbs>
 
-<ng-template #bc let-last="last" let-crumb>
-  {{crumb.label}}
-</ng-template>
+#### Breadcrumb customization
+
+```html
+<ngx-breadcrumbs [breadcrumbTemplate]="bc"></ngx-breadcrumbs>
+
+<ng-template #bc let-last="last" let-crumb> {{crumb.label}} </ng-template>
 ```
 
+#### Breadcrumb separator customization
 
-#### Breadcrumb separator customization 
 ```html
-<ngx-breadcrumbs [separatorTemplate]='sep' ></ngx-breadcrumbs>
+<ngx-breadcrumbs [separatorTemplate]="sep"></ngx-breadcrumbs>
 
-<ng-template #sep>
-  //
-</ng-template>
+<ng-template #sep> // </ng-template>
 ```
 
 ## Customization via CSS custom properties
@@ -238,12 +310,13 @@ There are two ways to for customization: via `ng-template` and/or via CSS custom
 Available CSS custom properties:
 
 The `breadcrumb-container`
+
 - `--ngx-breadcrumb-container-padding`: padding of the breadcrumb container. Default: `0.5rem`.
 - `--ngx-breadcrumb-container-margin`: the margin of the breadcrumb container.
 - `--ngx-breadcrumb-container-bg-color`: the background color of the breadcrumb container.
 - `--ngx-breadcrumb-gap-between`: gap between breadcrumbs. Default: `0.5rem`.
-- 
-The `breadcrumb` itself:
+- `--ngx-breadcrumb-container-width`: the width of the breadcrumb container. Default: `fit-content`.
+- The `breadcrumb` itself:
 - `--ngx-breadcrumb-padding`: padding of the breadcrumb. Default: `0.5rem`.
 - `--ngx-breadcrumb-margin`: the margin of the breadcrumb.
 - `--ngx-breadcrumb-bg-color`: the background color of the breadcrumb.
@@ -252,6 +325,7 @@ The `breadcrumb` itself:
 - `--ngx-breadcrumb-link-decoration`: the text-decoration of the breadcrumb link. Default: `none`.
 
 The separator container:
+
 - `--ngx-separator-container-height`: the height of the separator container. Default: `100%`.
 - `--ngx-separator-container-width`: the width of the separator container. Default: `auto`.
 - `--ngx-separator-container-padding`: the padding of the separator container. Default: `0`.
@@ -259,6 +333,7 @@ The separator container:
 - `--ngx-separator-container-bg-color`: the background color of the separator container. Default: `inherit`.
 
 The separator-icon between breadcrumbs:
+
 - `--ngx-separator-icon-color`: the color of the separator icon. Default: `black`.
 - `--ngx-separator-icon-height`: the height of the separator icon. Default: `24px`.
 - `--ngx-separator-icon-width`: the width of the separator icon. Default: `24px`.
@@ -266,6 +341,7 @@ The separator-icon between breadcrumbs:
 See Demo for examples.
 
 ## Translate Breadcrumbs
+
 To translate the breadcrums you only need to provide the `NGX_TRANSLATION_ADAPTER` token with an
 implementation of the `NgxBreadcrumbTranslationAdapter`-interface. You can choose any translation
 library of your choice.
@@ -282,7 +358,16 @@ export class MyTranslationAdapter implements NgxBreadcrumbTranslationAdapter {
     return this.translateService.instant(key);
   }
 }
+
+// app.module.ts
+
+
+@NgModule({
+  providers: [{provide: NGX_TRANSLATION_ADAPTER, useExisting: MyTranslationAdapter }],
+})
+export class AppModule {}
 ```
 
 ## Compatibility
+
 The versions align with the Angular versions. This means version 13.x.x of this library is compatible with Angular 13.x.x. or greater.
