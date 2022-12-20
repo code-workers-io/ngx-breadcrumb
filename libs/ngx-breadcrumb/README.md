@@ -109,14 +109,6 @@ Simply configure it in your `app.module.ts`:
 
 ```typescript
 NgxBreadcrumbModule.withConfig({
-  stickyRoot: [
-    new Breadcrumb('Home', '/'),
-    new Breadcrumb('Home1', '/')
-  ],
-  breadcrumbCount: {
-    fixedLead: 5,
-    fixedTail: 5,
-  },
   stickyRootComponent: {
     component: RootBreadcrumbComponent,
     data: {
@@ -366,6 +358,14 @@ export class MyTranslationAdapter implements NgxBreadcrumbTranslationAdapter {
     return this.translateService.instant(key);
   }
 }
+
+// app.module.ts
+
+
+@NgModule({
+  providers: [{provide: NGX_TRANSLATION_ADAPTER, useExisting: MyTranslationAdapter }],
+})
+export class AppModule {}
 ```
 
 ## Compatibility
