@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/ngx-breadcrumb"],
+      "outputs": [
+        "dist/libs/ngx-breadcrumb"
+      ],
       "options": {
         "project": "libs/ngx-breadcrumb/ng-package.json"
       },
@@ -22,7 +24,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/ngx-breadcrumb"],
+      "outputs": [
+        "coverage/libs/ngx-breadcrumb"
+      ],
       "options": {
         "jestConfig": "libs/ngx-breadcrumb/jest.config.js",
         "passWithNoTests": true
