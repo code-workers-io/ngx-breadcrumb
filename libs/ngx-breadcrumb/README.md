@@ -12,6 +12,7 @@ npm install --save @code-workers.io/ngx-breadcrumb
 ```
 
 ## Demo
+A live demo is available at [go to demo](https://green-meadow-01c14fc03.2.azurestaticapps.net/)
 
 ## Usage
 
