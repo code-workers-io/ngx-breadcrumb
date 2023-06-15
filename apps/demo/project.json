@@ -1,14 +1,13 @@
 {
+  "name": "demo",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/demo",
   "sourceRoot": "apps/demo/src",
   "prefix": "ngx-breadcrumb",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/demo",
         "index": "apps/demo/src/index.html",
@@ -16,13 +15,8 @@
         "polyfills": "apps/demo/src/polyfills.ts",
         "tsConfig": "apps/demo/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": [
-          "apps/demo/src/favicon.ico",
-          "apps/demo/src/assets"
-        ],
-        "styles": [
-          "apps/demo/src/styles.scss"
-        ],
+        "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
+        "styles": ["apps/demo/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -77,21 +71,16 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/demo/src/**/*.ts",
-          "apps/demo/src/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/demo/src/**/*.ts", "apps/demo/src/**/*.html"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/demo"
-      ],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/demo"],
       "options": {
-        "jestConfig": "apps/demo/jest.config.js",
+        "jestConfig": "apps/demo/jest.config.ts",
         "passWithNoTests": true
       }
     },

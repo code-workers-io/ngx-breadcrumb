@@ -1,14 +1,13 @@
 {
+  "name": "ngx-breadcrumb",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "root": "libs/ngx-breadcrumb",
   "sourceRoot": "libs/ngx-breadcrumb/src",
   "prefix": "ngx-breadcrumb",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": [
-        "dist/libs/ngx-breadcrumb"
-      ],
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/ngx-breadcrumb"],
       "options": {
         "project": "libs/ngx-breadcrumb/ng-package.json"
       },
@@ -23,17 +22,15 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/ngx-breadcrumb"
-      ],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/ngx-breadcrumb"],
       "options": {
-        "jestConfig": "libs/ngx-breadcrumb/jest.config.js",
+        "jestConfig": "libs/ngx-breadcrumb/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/ngx-breadcrumb/src/**/*.ts",
