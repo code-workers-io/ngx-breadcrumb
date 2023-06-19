@@ -43,6 +43,15 @@
       "options": {
         "preset": "angular"
       }
+    },
+    "component-test": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "libs/ngx-breadcrumb/cypress.config.ts",
+        "testingType": "component",
+        "skipServe": true,
+        "devServerTarget": "demo:build"
+      }
     }
   },
   "tags": []
