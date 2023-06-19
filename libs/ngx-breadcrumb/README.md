@@ -16,23 +16,6 @@ A live demo is available at [go to demo](https://green-meadow-01c14fc03.2.azures
 
 ## Usage
 
-### Import the `NgxBreadcrumbModule` module into your AppModule
-
-> You must import the `NgxBreadcrumbModule` into lazy-loaded modules, too.
-> Otherwise, no breadcrumbs will be rendered for the sub-routes of the
-> lazy-loaded module.
-
-```typescript
-// app.module.ts
-
-import { NgxBreadcrumbModule } from '@code-workers.io/ngx-breadcrumb';
-
-@NgModule({
-  imports: [NgxBreadcrumbModule],
-})
-export class AppModule {}
-```
-
 ### Provide Breadcrumbs
 
 #### Setup breadcrumb data in your route configuration
@@ -93,8 +76,8 @@ constructor(private breadcrumbProviderService: NgxBreadcrumbProviderService) {
 ```typescript
 // app.module.ts
 @NgModule({
-  imports: [
-    NgxBreadcrumbModule.withConfig({
+  providers: [
+    provideNgxBreadcrumbConfig({
       stickyRoot: [new Breadcrumb('Home', '/'), new Breadcrumb('Home1', '/')],
     }),
   ],
@@ -109,7 +92,7 @@ You can provide a root breadcrumb component which will be rendered in front of t
 Simply configure it in your `app.module.ts`:
 
 ```typescript
-NgxBreadcrumbModule.withConfig({
+provideNgxBreadcrumbConfig({
   stickyRootComponent: {
     component: RootBreadcrumbComponent,
     data: {
