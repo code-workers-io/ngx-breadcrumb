@@ -9,6 +9,13 @@ import { delay, map, switchMap, tap } from 'rxjs/operators';
 import { combineLatest, of, ReplaySubject } from 'rxjs';
 import { Breadcrumb } from '../types/breadcrumb.model';
 import { getRouteFromUrl } from '../utils/get-route-from-url';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { NgxBreadcrumbTranslatorPipe } from '../../translation-adapter/ngx-breadcrumb-translator.pipe';
+import {
+  RouterLink,
+  RouterLinkActive,
+  RouterLinkWithHref,
+} from '@angular/router';
 
 /**
  * Renders a single breadcrumb.
@@ -20,19 +27,19 @@ import { getRouteFromUrl } from '../utils/get-route-from-url';
       <ng-container
         *ngIf="last || ctx.breadcrumb?.url === undefined; else internalLink"
       >
-        {{ ctx.label | ngxBreadcrumbTranslator: ctx.omitted }}
+        {{ ctx.label | ngxBreadcrumbTranslator : ctx.omitted }}
       </ng-container>
       <ng-template #internalLink>
         <a
           *ngIf="ctx.routerLink !== undefined; else externalBreadcrumb"
           [routerLink]="ctx.routerLink"
         >
-          {{ ctx.label | ngxBreadcrumbTranslator: ctx.omitted }}
+          {{ ctx.label | ngxBreadcrumbTranslator : ctx.omitted }}
         </a>
       </ng-template>
       <ng-template #externalBreadcrumb>
         <a [href]="ctx.breadcrumb?.url">
-          {{ ctx.label | ngxBreadcrumbTranslator: ctx.omitted }}
+          {{ ctx.label | ngxBreadcrumbTranslator : ctx.omitted }}
         </a>
       </ng-template>
     </ng-container>
@@ -56,6 +63,15 @@ import { getRouteFromUrl } from '../utils/get-route-from-url';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NgIf,
+    NgxBreadcrumbTranslatorPipe,
+    RouterLinkWithHref,
+    RouterLink,
+    RouterLinkActive,
+    AsyncPipe,
+  ],
 })
 export class BreadcrumbComponent {
   @Input() breadcrumb!: Breadcrumb;

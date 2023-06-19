@@ -3,9 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   ComponentRef,
-  Inject,
+  inject,
   Input,
-  Optional,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
@@ -13,12 +12,12 @@ import {
 import { Observable } from 'rxjs';
 import { Breadcrumb } from '../types/breadcrumb.model';
 import { BreadcrumbService } from '../services/breadcrumb.service';
-import {
-  NGX_BREADCRUMB_CONFIG,
-  NgxBreadcrumbConfig,
-} from '../../config/ngx-breadcrumb-config';
+import { injectNgxBreadcrumbConfig } from '../../config/ngx-breadcrumb-config';
 import { Router } from '@angular/router';
 import { StickyBreadcrumbComponent } from '../types/sticky-breadcrumb-component';
+import { BreadcrumbsComponent } from './breadcrumbs.component';
+import { AsyncPipe, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
+import { BreadcrumbComponent } from './breadcrumb.component';
 
 @Component({
   selector: 'ngx-breadcrumbs',
@@ -91,8 +90,21 @@ import { StickyBreadcrumbComponent } from '../types/sticky-breadcrumb-component'
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    BreadcrumbsComponent,
+    NgForOf,
+    NgTemplateOutlet,
+    NgIf,
+    BreadcrumbComponent,
+    AsyncPipe,
+  ],
 })
 export class NgxBreadcrumbsComponent implements AfterViewInit {
+  private readonly config = injectNgxBreadcrumbConfig();
+  private readonly breadcrumbsService = inject(BreadcrumbService);
+  private readonly router = inject(Router);
+
   @ViewChild('stickyContainer', { read: ViewContainerRef })
   stickyContainer!: ViewContainerRef;
   @Input() separatorTemplate: TemplateRef<unknown> | null = null;
@@ -101,13 +113,6 @@ export class NgxBreadcrumbsComponent implements AfterViewInit {
   breadcrumbs$: Observable<Breadcrumb[]> = this.breadcrumbsService.breadcrumbs$;
   fixedLead$: Observable<number> = this.breadcrumbsService.fixedLead$;
   fixedTail$: Observable<number> = this.breadcrumbsService.fixedTail$;
-  constructor(
-    private readonly breadcrumbsService: BreadcrumbService,
-    private readonly router: Router,
-    @Optional()
-    @Inject(NGX_BREADCRUMB_CONFIG)
-    private readonly config: NgxBreadcrumbConfig
-  ) {}
 
   ngAfterViewInit() {
     if (this.config?.stickyRootComponent) {
@@ -116,7 +121,7 @@ export class NgxBreadcrumbsComponent implements AfterViewInit {
           this.config.stickyRootComponent.component
         );
       componentRef.instance.click.subscribe(() => {
-        this.router.navigate([this.config.stickyRootComponent?.data.link]);
+        this.router.navigate([this.config?.stickyRootComponent?.data.link]);
       });
     }
   }

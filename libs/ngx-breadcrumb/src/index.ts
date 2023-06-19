@@ -1,6 +1,7 @@
-export * from './lib/ngx-breadcrumb.module';
-
-export * from './lib/config/ngx-breadcrumb-config';
+export {
+  NgxBreadcrumbConfig,
+  provideNgxBreadcrumbConfig,
+} from './lib/config/ngx-breadcrumb-config';
 
 export * from './lib/breadcrumb/types/breadcrumb-provider';
 export * from './lib/breadcrumb/types/breadcrumb-data.model';
@@ -8,7 +9,10 @@ export * from './lib/breadcrumb/types/breadcrumb.model';
 export * from './lib/breadcrumb/types/sticky-breadcrumb-component';
 export * from './lib/breadcrumb/types/sticky-root-breadcrumb-config';
 
-export * from './lib/translation-adapter/ngx-breadcrumb-translation-adapter';
+export {
+  provideNgxBreadcrumbTranslationAdapter,
+  NgxBreadcrumbTranslationAdapter,
+} from './lib/translation-adapter/ngx-breadcrumb-translation-adapter';
 export * from './lib/translation-adapter/ngx-breadcrumb-translator.pipe';
 
 export * from './lib/ngx-breadcrumb-provider.service';

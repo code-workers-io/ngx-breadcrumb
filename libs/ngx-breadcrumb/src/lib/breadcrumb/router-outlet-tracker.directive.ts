@@ -12,6 +12,7 @@ import { log } from './utils/breadcrumb-console';
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: 'router-outlet',
+  standalone: true,
 })
 export class RouterOutletTrackerDirective implements OnDestroy {
   private destroyed$ = new Subject<void>();

@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -10,11 +10,7 @@ import { asyncScheduler, BehaviorSubject, Subscription } from 'rxjs';
 import { filter, map, observeOn } from 'rxjs/operators';
 import { RouterOutletTrackerService } from './router-outlet-tracker.service';
 import { Breadcrumb } from '../types/breadcrumb.model';
-
-import {
-  NGX_BREADCRUMB_CONFIG,
-  NgxBreadcrumbConfig,
-} from '../../config/ngx-breadcrumb-config';
+import { injectNgxBreadcrumbConfig } from '../../config/ngx-breadcrumb-config';
 import { BreadcrumbFactoryService } from './breadcrumb-factory.service';
 import { DEFAULT_FIXED_LEAD, DEFAULT_FIXED_TAIL } from '../../config/constants';
 import { log } from '../utils/breadcrumb-console';
@@ -31,6 +27,12 @@ import { log } from '../utils/breadcrumb-console';
  */
 @Injectable({ providedIn: 'root' })
 export class BreadcrumbService implements OnDestroy {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private tracker = inject(RouterOutletTrackerService);
+  private breadcrumbFactory = inject(BreadcrumbFactoryService);
+  private config = injectNgxBreadcrumbConfig();
+
   private subscriptions: Subscription = new Subscription();
   private _breadcrumbs$ = new BehaviorSubject<Breadcrumb[]>([]);
   readonly breadcrumbs$ = this._breadcrumbs$.asObservable();
@@ -44,26 +46,20 @@ export class BreadcrumbService implements OnDestroy {
   readonly fixedTail$ = this._fixedTail$.asObservable();
   private _stickyRootBreadcrumbs: Breadcrumb[] = [];
 
-  constructor(
-    route: ActivatedRoute,
-    private router: Router,
-    private tracker: RouterOutletTrackerService,
-    private breadcrumbFactory: BreadcrumbFactoryService,
-    @Optional()
-    @Inject(NGX_BREADCRUMB_CONFIG)
-    private config: NgxBreadcrumbConfig
-  ) {
-    if (config?.stickyRoot) {
-      this.setStickyRootBreadcrumbs(...config.stickyRoot);
+  constructor() {
+    if (this.config?.stickyRoot) {
+      this.setStickyRootBreadcrumbs(...this.config.stickyRoot);
     }
     // @ts-ignore
     this.subscriptions.add(
-      router.events
+      this.router.events
         .pipe(
           observeOn(asyncScheduler),
           filter((event) => event instanceof NavigationEnd),
           map((_) =>
-            Array.from(PrimaryOutletActivatedRouteIterator.from(route.snapshot))
+            Array.from(
+              PrimaryOutletActivatedRouteIterator.from(this.route.snapshot)
+            )
           ),
           map((routes: ActivatedRouteSnapshot[]) =>
             this.buildBreadcrumbs(routes)

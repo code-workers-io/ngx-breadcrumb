@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { BreadcrumbComponent } from './breadcrumb.component';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'ngx-breadcrumbs-container',
@@ -30,6 +31,8 @@ import { Subscription } from 'rxjs';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule],
 })
 export class BreadcrumbsComponent implements AfterContentInit, OnDestroy {
   @HostBinding('class.breadcrumbs') readonly useHostClass = true;
@@ -48,8 +51,6 @@ export class BreadcrumbsComponent implements AfterContentInit, OnDestroy {
   @Input() fixedTail = 2;
 
   private subscription = new Subscription();
-
-  constructor() {}
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

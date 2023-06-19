@@ -13,8 +13,8 @@ class TestComponent {}
 describe('ComponentActivationTrackerDirective', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [TestComponent, RouterOutletTrackerDirective],
+      imports: [RouterTestingModule, RouterOutletTrackerDirective],
+      declarations: [TestComponent],
       providers: [RouterOutletTrackerService],
     }).compileComponents();
   });
