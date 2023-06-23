@@ -25,7 +25,7 @@ export function provideNgxBreadcrumbTranslationAdapter(
 ) {
   return {
     provide: NGX_TRANSLATION_ADAPTER,
-    useValue: adapter,
+    useExisting: adapter,
   };
 }
 
