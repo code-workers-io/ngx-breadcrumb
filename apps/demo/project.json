@@ -86,6 +86,15 @@
     },
     "deploy": {
       "executor": "angular-cli-ghpages:deploy"
+    },
+    "component-test": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/demo/cypress.config.ts",
+        "testingType": "component",
+        "skipServe": true,
+        "devServerTarget": "demo:build"
+      }
     }
   },
   "tags": []
